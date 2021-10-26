@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "webpack": " tsc client/index.tsx --declaration --outDir ./dist --module es2015 --jsx react --moduleResolution node && webpack && tsc ./server/server.ts --moduleResolution node --outDir ./dist/server --esModuleInterop true",
-    "start": "tsc index.ts --outDir ./dist/electron && node ./dist/server/server.js",
+    "start": "tsc index.ts --outDir ./dist/electron && tsc server/createServer.ts --outDir ./dist/server --esModuleInterop true && node ./dist/server/server.js && NODE_ENV=production webpack ",
     "test": "NODE_ENV=testing jest GraphUnitTests SelectorUnitTests LoginPageUnitTests && NODE_ENV=testing jest --env=node serverUnitTests sqlUnitTests",
     "both": "npm run webpack && npm run start",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "make": "electron-forge make",
+    "dev": "NODE_ENV=development node server/server.js & NODE_ENV=development webpack serve --open"
   },
   "repository": {
     "type": "git",
@@ -61,6 +62,7 @@
     "axios": "^0.22.0",
     "babel-loader": "^8.2.2",
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "css-loader": "^6.3.0",
     "d3": "6.7.0",
     "electron": "^15.1.1",

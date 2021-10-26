@@ -90,7 +90,9 @@ const Selector = ({
   //sends a request to backend to grab all broker-tables from sqldb
   const fetchTables = (): void => {
     axios
-      .get<TableList[]>('http://localhost:3001/kafka/fetchTables')
+      .get<TableList[]>('/kafka/fetchTables',
+      {headers: {mode: 'cors'}},
+      )
       .then((response) => {
         //updating state to force rerender, so option appears on dropdown of bootstrap servers
         console.log('front end response in fetch tables', response);
